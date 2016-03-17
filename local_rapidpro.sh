@@ -50,3 +50,7 @@ echo "  temba=> \q"
 echo "That seems like it should be useful, but does not seem to give access to e.g. /users/user/ URL"
 echo "(research and fill this in)"
 echo "********************************************************************"
+cat <<_EOF_
+To run celery, in another window activate the virtualenv and
+run "./manage.py celery worker --beat --loglevel=info"
+_EOF_
