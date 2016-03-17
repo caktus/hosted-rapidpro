@@ -9,6 +9,14 @@ fi
 set -x
 
 sudo apt-get install ncurses-dev coffeescript postgis\* redis-server node-less
+
+# RapidPro uses an old version of Pillow that won't build right
+# if it tries to build freetype support against libfreetype 6 - but
+# if the dev libraries are installed, it'll try to do that and fail.
+# A simple workaround is to just uninstall the dev libraries and let
+# Pillow build without freetype support.
+# FIXME: Make sure we don't actually need freetype support in Pillow.
+# If we do, we should probably just install a current Pillow.
 sudo apt-get remove libfreetype6-dev
 
 if [ ! -e temba/settings.py ] ; then cp temba/settings.py.dev temba/settings.py ; fi
@@ -42,15 +50,5 @@ echo "********************************************************************"
 echo "Local dev env is set up.  Next steps:"
 echo "* Start local server: python manage.py runserver"
 echo "* Go to http://localhost:8000 and create a new user for yourself"
-echo "  (manage.py createsuperuser will not create a working user)"
-echo "* You can change user to Django superuser this way:"
-echo "  $ python manage.py dbshell"
-echo "  temba=> update auth_user set is_superuser = true where username = 'YOURUSERNAME';"
-echo "  temba=> \q"
-echo "That seems like it should be useful, but does not seem to give access to e.g. /users/user/ URL"
-echo "(research and fill this in)"
+echo "* See also README.md"
 echo "********************************************************************"
-cat <<_EOF_
-To run celery, in another window activate the virtualenv and
-run "./manage.py celery worker --beat --loglevel=info"
-_EOF_

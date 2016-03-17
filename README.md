@@ -1,5 +1,14 @@
 
 
+Running celery locally
+----------------------
+
+* Run celery in its own window, after activating the rapidpro
+  virtualenv:
+
+    python manage.py celery worker --beat --loglevel=info
+
+
 Running locally using ngrok and twilio
 --------------------------------------
 
