@@ -38,8 +38,24 @@ Running locally using ngrok and twilio
   and write down the AccountSID and
   AuthToken for later use, or keep this page open
   so you can get them later.
-* Install ngrok (https://ngrok.com/)
-* Start ngrok in a local window, picking a subdomain:
+* Get a *paid* ngrok account. (Cakti: use the *Google* 
+  login on the ngrok web site rather than creating a
+  new account directly.  Use your Caktus email account.)
+* Install ngrok (https://ngrok.com/). These instructions
+  were developed using ngrok 2.0.25, so try running:
+  
+      ngrok version
+  
+  and make sure your version isn't older than that.
+* Tell ngrok to use your web ngrok account: Go to the
+  auth page (https://dashboard.ngrok.com/auth), copy
+  the long random "authtoken" string, and run:
+  
+     ngrok authtoken <YOURAUTHTOKEN>
+   
+* Start ngrok in a local window, picking an 
+  arbitrary subdomain (any string of letters you
+  want, it doesn't have to match anything else):
 
     $ ngrok http -subdomain=MYSUBDOMAIN 8000
 
@@ -55,7 +71,9 @@ Running locally using ngrok and twilio
 
     SEND_MESSAGES = True
 
-* Start rapidpro (see above)
+* Start rapidpro (see above). Make sure it's running on port
+  8000, or that you've changed the command you used to start
+  ngrok to connect to the port where rapidpro is running.
 
 * Start celery (see above)
 
