@@ -4,7 +4,7 @@ Setting up for local development
 To work on hosted rapidpro:
 
     $ git clone git@github.com:caktus/hosted-rapidpro
-    $ git clone https://github.com/rapidpro
+    $ git clone https://github.com/rapidpro/rapidpro.git
     $ cd rapidpro
     $ sh ../hosted-rapidpro/local_rapidpro.sh
 
