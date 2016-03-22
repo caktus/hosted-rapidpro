@@ -1,102 +1,114 @@
-Setting up for local development
-================================
+# Setting up for local development
 
-To work on hosted rapidpro:
+## 1. Create an ngrok account
 
+Use ngrok to set up a URL that fowards to your development server. You'll need
+a paid account so that you can set up a subdomain.
+
+1. Download the ngrok zip: https://ngrok.com/download
+
+2. Unzip the package, and move the `ngrok` executable to a convenient
+   location.
+
+3. Log into https://ngrok.com using the Google login with your Caktus account.
+   This will give you access to the "Caktus Group" organization, which is
+   a paid account.
+
+4. Configure ngrok to use the Caktus account.
+   Get the auth token here from https://dashboard.ngrok.com/auth
+
+    ```
+    ./ngrok authtoken <caktus-auth-token>
+    ```
+
+   NOTE: You probably have access to an individual account as well as the
+   Caktus organization account. Make sure that "Caktus Group" is selected
+   from the account dropdown. Otherwise, you'll see this error when you start
+   ngrok later: "Only paid plans may bind custom subdomains"
+
+5. Decide upon a unique subdomain for your use in development, e.g.
+   MYSUBDOMAIN.ngrok.io. No configuration is needed yet, but you'll use
+   this subdomain/url throughout the rest of the setup.
+
+## 2. Create a Twilio phone number
+
+1. Get access to a Twilio account. Ask for access to the Caktus account
+   credentials on Lastpass.
+
+2. Create a new Twilio phone number for your use in development:
+   https://www.twilio.com/user/account/phone-numbers/incoming
+
+   NOTE: This adds a small cost to our account; that's allowed.
+
+3. Configure your new number with "TwiML App", and click "+ Create a new TwiML app",
+   and use this info:
+
+    * **Friendly Name:** MYSUBDOMAIN.ngrok.io
+    * **Voice Request URL:** HTTP POST to https://MYSUBDOMAIN.ngrok.io/handlers/twilio/
+    * **Messaging Request URL:** HTTP POST to https://MYSUBDOMAIN.ngrok.io/handlers/twilio/
+
+## 3. Local setup
+
+1. Create a directory for this project.
+
+2. Clone the repos into this directory:
+
+    ```
     $ git clone git@github.com:caktus/hosted-rapidpro
     $ git clone https://github.com/rapidpro/rapidpro.git
+    ```
+
+3. Create a virtual environment and activate it.
+
+4. Local set-up work is encapsulated in a single shell script:
+
+    ```
     $ cd rapidpro
     $ sh ../hosted-rapidpro/local_rapidpro.sh
+    ```
 
-Then read the rest of this README.
+5. Edit ``temba/settings.py`` and add a few new settings:
 
-Running the server locally
---------------------------
-
-To start the server:
-
-    $ cd ..../rapidpro
-    $ workon rapidpro
-    $ python manage.py runserver
-
-Running celery locally
-----------------------
-
-To start celery:
-
-    $ cd ..../rapidpro
-    $ workon rapidpro
-    $ python manage.py celery worker --beat --loglevel=info
-
-Running locally using ngrok and twilio
---------------------------------------
-
-* Get access to a Twilio account
-* Get a new Twilio phone number.
-* Go to the account settings page
-  (https://www.twilio.com/user/account/settings)
-  and write down the AccountSID and
-  AuthToken for later use, or keep this page open
-  so you can get them later.
-* Get a *paid* ngrok account. (Cakti: use the *Google* 
-  login on the ngrok web site rather than creating a
-  new account directly.  Use your Caktus email account.)
-* Install ngrok (https://ngrok.com/). These instructions
-  were developed using ngrok 2.0.25, so try running:
-  
-      ngrok version
-  
-  and make sure your version isn't older than that.
-* Tell ngrok to use your web ngrok account: Go to the
-  auth page (https://dashboard.ngrok.com/auth), copy
-  the long random "authtoken" string, and run:
-  
-     ngrok authtoken <YOURAUTHTOKEN>
-   
-* Start ngrok in a local window, picking an 
-  arbitrary subdomain (any string of letters you
-  want, it doesn't have to match anything else):
-
-    $ ngrok http -subdomain=MYSUBDOMAIN 8000
-
-* ngrok will show you the address it's forwarding from -
-  probably http://SUBDOMAIN.ngrok.io.  Edit your local
-  settings.py and set HOSTNAME and TEMBA_HOST to
-  that hostname (not the full URL, just the hostname), e.g.:
-
-    HOSTNAME = 'SUBDOMAIN.ngrok.io'
-    TEMBA_HOST = 'SUBDOMAIN.ngrok.io'
-  
-* Also turn on sending in settings.py:
-
+    ```
+    HOSTNAME = "MYSUBDOMAIN.ngrok.io"
+    TEMBA_HOST = "MYSUBDOMAIN.ngrok.io"
+    ALLOWED_HOSTS = ["MYSUBDOMAIN.ngrok.io"]
     SEND_MESSAGES = True
+    ```
 
-* Start rapidpro (see above). Make sure it's running on port
-  8000, or that you've changed the command you used to start
-  ngrok to connect to the port where rapidpro is running.
+5. In a separate terminal, start the server:
 
-* Start celery (see above)
+    ```
+    $ python manage.py runserver
+    ```
 
-* Go to http://SUBDOMAIN.ngrok.io and log in.
+6. In a separate terminal, start celery:
 
-* Go to your org settings at http://SUBDOMAIN.ngrok.io/org/home/
+    ```
+    $ python manage.py worker --beat --loglevel=info
+    ```
 
-* Click the gear next to the Logout button and click "Add Channel"
+7. In a separate terminal, start ngrok on the same port as your development
+   server:
 
-* Click "Twilio Number" (the top choice, probably)
+    ```
+    $ ngrok http -subdomain MYSUBDOMAIN 8000
+    ```
 
-* It'll prompt you for the Twilio Account SID and token that you
-  wrote down earlier.  Enter them and click Ok.
+8. Navigate to http://MYSUBDOMAIN.ngrok.io.
 
-* It'll prompt you to claim a phone number. The one you created earlier
-  should be listed under "Add an existing supported number to your
-  account", so just click it.
+9. Create a new account and log in.
 
-* Now, to double-check that things are set up right at Twilio, go
-  back to the list of phone numbers at Twilio
-  (https://www.twilio.com/user/account/phone-numbers/incoming),
-  find your phone number, and look at the Configuration
-  column.  You should see SUBDOMAIN.ngrok.io as part of the
-  configuration (and not e.g. "rapidpro.ngrok.com" or something else).
+10. Visit your org settings at http://MYSUBDOMAIN.ngrok.io/org/home/
 
-* Now you should be able to run flows, send, and receive messages.
+11. Click the gear next to the Logout button and click "Add Channel"
+
+12. Click "Twilio Number" (probably the top choice)
+
+13. Add your Twilio account SID and token, which you can get from
+    https://www.twilio.com/user/account/settings
+
+14. You'll be prompted to claim a phone number. Click the phone number you
+    created earlier under "Add an existing supported number to your account"
+
+15. Now you should be able to run flows, send, and receive messages.
