@@ -14,19 +14,18 @@ a paid account so that you can set up a subdomain.
    This will give you access to the "Caktus Group" organization, which is
    a paid account.
 
-4. Configure ngrok to use the Caktus account.
-   Get the auth token here from https://dashboard.ngrok.com/auth
+4. Navigate to the ngrok dashboard. Make sure you've chosen "Caktus Group"
+   from the organization dropdown on the line below the nav bar, and not your
+   personal (free) account.
+
+5. Use the auth token from the "Auth" dashboard tab to configure ngrok to use
+   the Caktus account:
 
     ```
     $ ./ngrok authtoken <caktus-auth-token>
     ```
 
-   NOTE: You probably have access to an individual account as well as the
-   Caktus organization account. Make sure that "Caktus Group" is selected
-   from the account dropdown. Otherwise, you'll see this error when you start
-   ngrok later: "Only paid plans may bind custom subdomains"
-
-5. Decide upon a unique subdomain for your use in development, e.g.
+6. Decide upon a unique subdomain for your use in development, e.g.
    MYSUBDOMAIN.ngrok.io. No configuration is needed yet, but you'll use
    this subdomain/url throughout the rest of the setup.
 
@@ -94,6 +93,11 @@ a paid account so that you can set up a subdomain.
     ```
     $ ngrok http -subdomain MYSUBDOMAIN 8000
     ```
+
+   NOTE: If you see an error like "Only paid plans may bind to custom
+   subdomains", then you probably configured ngrok with your individual (free)
+   account credentials. Go back to steps 4-5 in the ngrok section above and
+   reconfigure with the Caktus Group (paid) credentials.
 
 8. Navigate to http://MYSUBDOMAIN.ngrok.io.
 
