@@ -62,8 +62,8 @@ a paid account so that you can set up a subdomain.
 4. Local set-up work is encapsulated in a single shell script:
 
     ```
-    $ cd rapidpro
-    $ sh ../hosted-rapidpro/local_rapidpro.sh
+    $ (rapidpro) cd rapidpro
+    $ (rapidpro) sh ../hosted-rapidpro/local_rapidpro.sh
     ```
 
 5. Edit ``temba/settings.py`` and add a few new settings:
@@ -78,20 +78,20 @@ a paid account so that you can set up a subdomain.
 5. In a separate terminal, start the server:
 
     ```
-    $ python manage.py runserver
+    $ (rapidpro) python manage.py runserver
     ```
 
 6. In a separate terminal, start celery:
 
     ```
-    $ python manage.py worker --beat --loglevel=info
+    $ (rapidpro) python manage.py worker --beat --loglevel=info
     ```
 
 7. In a separate terminal, start ngrok on the same port as your development
    server:
 
     ```
-    $ ngrok http -subdomain MYSUBDOMAIN 8000
+    $ (rapidpro) ngrok http -subdomain MYSUBDOMAIN 8000
     ```
 
    NOTE: If you see an error like "Only paid plans may bind to custom
