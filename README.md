@@ -18,7 +18,7 @@ a paid account so that you can set up a subdomain.
    Get the auth token here from https://dashboard.ngrok.com/auth
 
     ```
-    ./ngrok authtoken <caktus-auth-token>
+    $ ./ngrok authtoken <caktus-auth-token>
     ```
 
    NOTE: You probably have access to an individual account as well as the
