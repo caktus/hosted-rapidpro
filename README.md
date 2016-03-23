@@ -91,7 +91,7 @@ a paid account so that you can set up a subdomain.
    server:
 
     ```
-    $ (rapidpro) ngrok http -subdomain MYSUBDOMAIN 8000
+    $ (rapidpro) ./ngrok http -subdomain MYSUBDOMAIN 8000
     ```
 
    NOTE: If you see an error like "Only paid plans may bind to custom
