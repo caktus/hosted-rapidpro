@@ -39,13 +39,6 @@ a paid account so that you can set up a subdomain.
 
    NOTE: This adds a small cost to our account; that's allowed.
 
-3. Configure your new number with "TwiML App", and click "+ Create a new TwiML app",
-   and use this info:
-
-    * **Friendly Name:** MYSUBDOMAIN.ngrok.io
-    * **Voice Request URL:** HTTP POST to https://MYSUBDOMAIN.ngrok.io/handlers/twilio/
-    * **Messaging Request URL:** HTTP POST to https://MYSUBDOMAIN.ngrok.io/handlers/twilio/
-
 ## 3. Local setup
 
 1. Create a directory for this project.
@@ -115,5 +108,24 @@ a paid account so that you can set up a subdomain.
 
 14. You'll be prompted to claim a phone number. Click the phone number you
     created earlier under "Add an existing supported number to your account"
+
+15. Back on Twilio to confirm that everything has been configured correctly:
+
+    * Look at your TwiML apps here:
+      https://www.twilio.com/user/account/voice/dev-tools/twiml-apps
+
+      Confirm that one has been created for your ngrok subdomain:
+
+        - **Friendly Name:** MYSUBDOMAIN.ngrok.io/ORG-ID
+        - **Voice Request URL:** HTTP POST to https://MYSUBDOMAIN.ngrok.io/handlers/twilio/
+        - **Messaging Request URL:** HTTP POST to https://MYSUBDOMAIN.ngrok.io/handlers/twilio/
+
+      If not, create one now.
+
+    * Find your Twilio phone number:
+      https://www.twilio.com/user/account/phone-numbers/incoming
+
+      Confirm that it is configured with the aforementioned TwiML app for
+      both Voice and Messaging.
 
 15. Now you should be able to run flows, send, and receive messages.
