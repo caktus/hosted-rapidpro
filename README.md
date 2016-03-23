@@ -77,7 +77,7 @@ a paid account so that you can set up a subdomain.
 6. In a separate terminal, start celery:
 
     ```
-    $ (rapidpro) python manage.py worker --beat --loglevel=info
+    $ (rapidpro) python manage.py celery worker --beat --loglevel=info
     ```
 
 7. In a separate terminal, start ngrok on the same port as your development
