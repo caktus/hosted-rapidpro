@@ -138,7 +138,7 @@ a paid account so that you can set up a subdomain.
    see output like this:
 
     ```
-    POST /handlers/twilio/                              201 CREATED
+    POST /handlers/twilio/      201 CREATED
     ```
 
    Within a few more seconds, the RapidPro message history page should update
