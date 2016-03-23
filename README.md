@@ -1,6 +1,6 @@
 # Setting up for local development
 
-## 1. Create an ngrok account
+## 1. Set up ngrok
 
 Use ngrok to set up a URL that fowards to your development server. You'll need
 a paid account so that you can set up a subdomain.
@@ -29,7 +29,7 @@ a paid account so that you can set up a subdomain.
    MYSUBDOMAIN.ngrok.io. No configuration is needed yet, but you'll use
    this subdomain/url throughout the rest of the setup.
 
-## 2. Create a Twilio phone number
+## 2. Set up a Twilio phone number
 
 1. Get access to a Twilio account. Ask for access to the Caktus account
    credentials on Lastpass.
@@ -39,7 +39,7 @@ a paid account so that you can set up a subdomain.
 
    NOTE: This adds a small cost to our account; that's allowed.
 
-## 3. Local setup
+## 3. Set up your local machine
 
 1. Create a directory for this project.
 
@@ -52,7 +52,7 @@ a paid account so that you can set up a subdomain.
 
 3. Create a virtual environment and activate it.
 
-4. Local set-up work is encapsulated in a single shell script:
+4. Most local set-up work is encapsulated in a single shell script:
 
     ```
     $ (rapidpro) cd rapidpro
@@ -68,19 +68,21 @@ a paid account so that you can set up a subdomain.
     SEND_MESSAGES = True
     ```
 
-5. In a separate terminal, start the server:
+## 4. Run the server
+
+1. In a separate terminal, start the server:
 
     ```
     $ (rapidpro) python manage.py runserver
     ```
 
-6. In a separate terminal, start celery:
+2. In a separate terminal, start celery:
 
     ```
     $ (rapidpro) python manage.py celery worker --beat --loglevel=info
     ```
 
-7. In a separate terminal, start ngrok on the same port as your development
+3. In a separate terminal, start ngrok on the same port as your development
    server:
 
     ```
@@ -92,24 +94,29 @@ a paid account so that you can set up a subdomain.
    account credentials. Go back to steps 4-5 in the ngrok section above and
    reconfigure with the Caktus Group (paid) credentials.
 
-8. Navigate to http://MYSUBDOMAIN.ngrok.io. You should see the RapidPro
+
+## 5. Set up your RapidPro account
+
+1. Navigate to http://MYSUBDOMAIN.ngrok.io. You should see the RapidPro
    homepage.
 
-9. Create a new account and log in.
+2. Create a new account and log in.
 
-10. Visit your org settings at http://MYSUBDOMAIN.ngrok.io/org/home/
+3. Visit your org settings at http://MYSUBDOMAIN.ngrok.io/org/home/
 
-11. Click the gear next to the Logout button and click "Add Channel"
+4. Click the gear next to the Logout button and click "Add Channel"
 
-12. Click "Twilio Number" (probably the top choice)
+5. Click "Twilio Number" (probably the top choice)
 
-13. Add your Twilio account SID and token, which you can get from
-    https://www.twilio.com/user/account/settings
+6. Add your Twilio account SID and token, which you can get from
+   https://www.twilio.com/user/account/settings
 
-14. You'll be prompted to claim a phone number. Click the phone number you
-    created earlier under "Add an existing supported number to your account"
+7. You'll be prompted to claim a phone number. Click the phone number you
+   created earlier under "Add an existing supported number to your account"
 
-15. Back on Twilio to confirm that everything has been configured correctly:
+## 6. Confirm that everything is working
+
+1. Back on Twilio to confirm that everything has been configured correctly:
 
     * Look at your TwiML apps here:
       https://www.twilio.com/user/account/voice/dev-tools/twiml-apps
@@ -128,4 +135,22 @@ a paid account so that you can set up a subdomain.
       Confirm that it is configured with the aforementioned TwiML app for
       both Voice and Messaging.
 
-15. Now you should be able to run flows, send, and receive messages.
+2. Visit this page on RapidPro to add yourself as a contact:
+   MYSUBDOMAIN.ngrok.io/contact/
+
+3. Visit this page to send a message to yourself:
+   MYSUBDOMAIN.ngrok.io/msg/inbox/
+
+4. Within a few seconds you should receive the message on your cell phone.
+
+5. Reply to the message from your phone. In your ngrok terminal, you should
+   see output like this:
+
+    ```
+    POST /handlers/twilio/                              201 CREATED
+    ```
+
+   Within a few more seconds, the RapidPro message history page should update
+   to include the message that was just received.
+
+Now you're set up to send and receive messages and start flows.
