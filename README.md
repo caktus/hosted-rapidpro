@@ -52,20 +52,11 @@ a paid account so that you can set up a subdomain.
 
 3. Create a virtual environment and activate it.
 
-4. Most local set-up work is encapsulated in a single shell script:
+4. Local set-up work is encapsulated in a single shell script:
 
     ```
     $ (rapidpro) cd rapidpro
-    $ (rapidpro) sh ../hosted-rapidpro/local_rapidpro.sh
-    ```
-
-5. Edit ``temba/settings.py`` and add a few new settings:
-
-    ```
-    HOSTNAME = "MYSUBDOMAIN.ngrok.io"
-    TEMBA_HOST = "MYSUBDOMAIN.ngrok.io"
-    ALLOWED_HOSTS = ["MYSUBDOMAIN.ngrok.io"]
-    SEND_MESSAGES = True
+    $ (rapidpro) sh ../hosted-rapidpro/local_rapidpro.sh MYSUBDOMAIN
     ```
 
 ## 4. Run the server

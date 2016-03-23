@@ -6,6 +6,11 @@ if [ ! -e temba ] ; then
   exit 1
 fi
 
+if [ $# -ne 1 ] ; then
+  echo "Usage: sh ../hosted-rapidpro/local_rapidpro.sh MYSUBDOMAIN"
+  exit 1
+fi
+
 set -x
 
 sudo apt-get install ncurses-dev coffeescript postgis\* redis-server node-less
@@ -44,6 +49,12 @@ npm update
 
 python manage.py syncdb
 python manage.py migrate
+
+echo '' >> temba/settings.py
+echo 'SEND_MESSAGES = True' >> temba/settings.py
+echo 'HOSTNAME = "'$1'.ngrok.io"' >> temba/settings.py
+echo 'TEMBA_HOST = "'$1'.ngrok.io"' >> temba/settings.py
+echo 'ALLOWED_HOSTS = ["'$1'.ngrok.io"]' >> temba/settings.py
 
 set +x
 echo "********************************************************************"
