@@ -99,7 +99,8 @@ a paid account so that you can set up a subdomain.
    account credentials. Go back to steps 4-5 in the ngrok section above and
    reconfigure with the Caktus Group (paid) credentials.
 
-8. Navigate to http://MYSUBDOMAIN.ngrok.io.
+8. Navigate to http://MYSUBDOMAIN.ngrok.io. You should see the RapidPro
+   homepage.
 
 9. Create a new account and log in.
 
