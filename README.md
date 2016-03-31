@@ -55,8 +55,8 @@ a paid account so that you can set up a subdomain.
 4. Local set-up work is encapsulated in a single shell script:
 
     ```
-    $ (rapidpro) cd rapidpro
-    $ (rapidpro) sh ../hosted-rapidpro/local_rapidpro.sh MYSUBDOMAIN
+    $ cd rapidpro
+    $ sh ../hosted-rapidpro/local_rapidpro.sh MYSUBDOMAIN
     ```
 
 ## 4. Run the server
@@ -145,3 +145,25 @@ a paid account so that you can set up a subdomain.
    to include the message that was just received.
 
 Now you're set up to send and receive messages and start flows.
+
+## 7. Set up mage
+
+If you do not plan to support Twitter channels, Mage can be left out of hosting installations without any effect given low enough volume.
+
+1. Generate a randomized alphanumeric key for your TEMBA_AUTH_TOKEN in Mage, which should match your MAGE_AUTH_TOKEN in your RapidPro local settings file. Copy that key into `local_mage.sh` at this line:
+
+  ```
+  echo "export TEMBA_AUTH_TOKEN=<replace me>" >> $VIRTUAL_ENV/bin/postactivate
+  ```
+
+2. Clone the Mage repo and run the shell script to build it and set environment variables in a new command window.
+
+    ```
+    $ git clone https://github.com/rapidpro/mage
+    $ cd mage
+    $ sh ../hosted-rapidpro/local_mage.sh
+    ```
+
+3. TODO: figure out how to run Mage locally
+
+
