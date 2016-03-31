@@ -150,7 +150,7 @@ Now you're set up to send and receive messages and start flows.
 
 If you do not plan to support Twitter channels, Mage can be left out of hosting installations without any effect given low enough volume.
 
-1. Generate a randomized alphanumeric key for your TEMBA_AUTH_TOKEN in Mage, which should match your MAGE_AUTH_TOKEN in your RapidPro local settings file. Copy that key into `local_mage.sh` at this line:
+1. Generate a randomized alphanumeric key for your TEMBA_AUTH_TOKEN in Mage, which should match your MAGE_AUTH_TOKEN in your RapidPro local settings file. You RapidPro local settings file should include both this MAGE_AUTH_TOKEN and MAGE_API_URL (ie. 'http://localhost:8026/api/v1') settings. Copy that key into `local_mage.sh` at this line:
 
   ```
   echo "export TEMBA_AUTH_TOKEN=<replace me>" >> $VIRTUAL_ENV/bin/postactivate
